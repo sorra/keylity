@@ -1,4 +1,4 @@
-package github.keylity.side
+package github.keylity
 
 class StaticProxy (before: () => Unit, success: () => Unit, failure: Throwable => Unit, after: () => Unit) {
   
