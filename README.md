@@ -13,7 +13,7 @@ A value holder whose value can be modified once and only once.
 Helps you build something like AOP.
 
 ###SideBinding
--- There are local binding, global binding ...... and side binding!
+> There are local binding, global binding ...... and side binding!
 
 You can bind different values to the same symbol in call stacks.
 
