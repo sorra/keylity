@@ -21,7 +21,7 @@ class StaticProxy (before: () => Unit, success: () => Unit, failure: Throwable =
 
 object StaticProxy {
   
-  def apply(before: () => Unit, success: () => Unit, failure: Throwable => Unit, after: () => Unit) = {
+  def apply(before: () => Unit, success: () => Unit, failure: Throwable => Unit, after: () => Unit): StaticProxy = {
     new StaticProxy(before, success, failure, after)
   }
   

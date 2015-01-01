@@ -5,7 +5,7 @@ import scala.collection.mutable.Stack
 class SideBinding[T] {
   val stackHolder: ThreadLocal[Stack[T]] = new ThreadLocal
 
-  /** Get current value */
+  /** Get current value(as type U) */
   def apply[U](): U = get().asInstanceOf[U]
   
   /** Get current value */
@@ -28,6 +28,10 @@ class SideBinding[T] {
     }
   }
 
+  /** Get option of current value(as type U) */
+  def optionAs[U]: Option[U] = option.asInstanceOf[Option[U]]
+
+  /** If this binding has no value now */
   def isEmpty(): Boolean = stackHolder.get == null || stackHolder.get.isEmpty
   
   // no-throw
