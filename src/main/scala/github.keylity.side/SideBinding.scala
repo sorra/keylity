@@ -48,12 +48,12 @@ class SideBinding[T] {
   private[side] def stack() = stackHolder.get
   
   private def checkInit() = {
-    if (isEmpty) {
+    if (stackHolder.get == null) {
       stackHolder.set(Stack())
     }
   }
   private def checkClear() = {
-    if (isEmpty) {
+    if (stackHolder.get.isEmpty) {
       stackHolder.remove()      
     }
   }
