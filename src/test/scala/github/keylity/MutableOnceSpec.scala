@@ -5,7 +5,7 @@ import org.specs2.mutable._
 class MutableOnceSpec extends Specification {
   "MutableOnce behavior" should {
     "Create, mute once and twice like" in {
-      val id = new MutableOnce[Int](0)
+      val id = new MutableOnce(0)
       id() must_== 0
 
       id.set(1)
