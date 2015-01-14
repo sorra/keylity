@@ -24,11 +24,11 @@ object SideContext {
     if (store.isEmpty) {
       None
     } else {
-      var option: Option[Any] = None
-      for (map <- store.stack.toList if option.isEmpty) {
-        option = map.get(key)
+      var result: Option[Any] = None
+      for (map <- store.stack.toList if result.isEmpty) {
+        result = map.get(key)
       }
-      option.asInstanceOf[Option[T]]
+      result.asInstanceOf[Option[T]]
     }
   }
 
