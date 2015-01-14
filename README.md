@@ -6,15 +6,6 @@ They are your building blocks. Feel free to use or modify it!
 
 Built with sbt. Tests are in src/test/scala/, serving as code examples.
 
-###MutableOnce
-A value holder whose value can be modified once and only once.
-
-```
-val id = new MutableOnce(0)
-id.set(1) // OK
-id.set(2) // Fail
-```
-
 ###StaticProxy
 Helps you build something like AOP.
 ```

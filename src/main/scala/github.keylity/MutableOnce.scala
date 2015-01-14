@@ -1,5 +1,6 @@
 package github.keylity
 
+@deprecated("No need to use it. A lazy val with initializer block is enough and thread-safe.")
 class MutableOnce[T] (var value: T) {
   
   var muted = false
