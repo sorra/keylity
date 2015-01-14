@@ -5,9 +5,9 @@ import scala.collection.mutable.Stack
 class SideBinding[T] {
   val stackHolder: ThreadLocal[Stack[T]] = new ThreadLocal
 
-  /** Get current value(as type U) */
-  def apply[U](): U = get().asInstanceOf[U]
-  
+  /** Get current value */
+  def apply(): T = get
+
   /** Get current value */
   def get(): T = {
     if (stackHolder.get == null) {
@@ -18,18 +18,15 @@ class SideBinding[T] {
       stackHolder.get.top
     }
   }
-  
-  /** Get option of current value */
-  def option(): Option[T] = {
-    if (isEmpty) {
-      None
-    } else {
-      Some(apply())
-    }
-  }
 
-  /** Get option of current value(as type U) */
-  def optionAs[U]: Option[U] = option.asInstanceOf[Option[U]]
+  /** Get option of current value */
+  def *(): Option[T] = option
+
+  /** Get option of current value */
+  def option(): Option[T] = if (isEmpty) None else Some(apply())
+
+  /** Form a raw-typed pair of binding-value, used in SideBinding.call(...) */
+  def ->(value: T): (SideBinding[Any], Any) = (this.asInstanceOf[SideBinding[Any]], value)
 
   /** If this binding has no value now */
   def isEmpty(): Boolean = stackHolder.get == null || stackHolder.get.isEmpty
@@ -64,8 +61,8 @@ class SideBinding[T] {
 
 object SideBinding {
   
-  /** Creates a side binding. Store it in static area by yourself */
-  def apply() = new SideBinding[Any]
+  /** Creates a new side binding */
+  def apply[T]() = new SideBinding[T]
   
   /** Call your block with side bindings around */
   def call[R](bindings: (SideBinding[Any], Any)*)(block: => R): R = call(() => block, bindings: _*)
