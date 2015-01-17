@@ -34,9 +34,28 @@ call(a->1, b->"Wow"){
 You can bind nested contexts(backed by hash map) in call stacks, and get/set contextual variables.
 ```
 call("a"->1, "b"->"Wow"){
-  println((ctx("a")[Int], ctx("b")[String]))
+  println((context("a")[Int], context("b")[String]))
   call("a"->2){
     // ...
+  }
+}
+```
+If you are using Servlet or IoC framework, you can also adapt your context as the root of SideContext.
+```
+RequestContext extends ContextLike {
+  val request: HttpServletRequest = YourCode.getRequest
+  override def get(key: String) = Option(request.getAttribute(key))
+  override def set(key: String, value: Any) = {
+    val old = get(key)
+    request.setAttribute(key, value)
+    Option(old)
+  }
+}
+
+rootCall(new RequestContext) {
+  context("userId", 109913)
+  call ("a"->90) {
+    println(context("userId") + " " + context("a"))
   }
 }
 ```
