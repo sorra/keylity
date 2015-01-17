@@ -68,7 +68,7 @@ object SideBinding {
   def call[R](bindings: (SideBinding[Any], Any)*)(block: => R): R = call(() => block, bindings: _*)
   
   /** Call your function with side bindings around */
-  def call[R](func: () => R, bindings: (SideBinding[Any], Any)*) = {
+  protected def call[R](func: () => R, bindings: (SideBinding[Any], Any)*) = {
     bindings.foreach { pair => pair._1.push(pair._2) }
     try {
       func()
