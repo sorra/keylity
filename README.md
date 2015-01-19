@@ -42,7 +42,7 @@ call("a"->1, "b"->"Wow"){
 ```
 If you are using Servlet or IoC framework, you can also adapt your context as the root of SideContext.
 ```
-RequestContext extends ContextLike {
+class RequestContext extends ContextLike {
   val request: HttpServletRequest = YourCode.getRequest
   override def get(key: String) = Option(request.getAttribute(key))
   override def set(key: String, value: Any) = {
