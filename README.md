@@ -51,11 +51,22 @@ class RequestContext extends ContextLike {
     Option(old)
   }
 }
-
-rootCall(new RequestContext) {
-  context("userId", 109913)
-  call ("a"->90) {
-    println(context("userId") + " " + context("a"))
+val req = new RequestContext
+rootCall(req) {
+  context("userId", 109913) //set
+  call("a"->90) {
+    println(context("userId") + " " + context("a")) //get
   }
 }
+req.get("userId") == Some(109913)
 ```
+If your root context is immutable, you can implement a fake `set` method, and push a new context on it, like this:
+```
+val req = new RequestContext
+rootCall(req) {call() {
+  context("userId", 109913) //set
+  println(context("userId")) //get
+}}
+req.get("userId") == None
+```
+>I will look for a better design in the future.
