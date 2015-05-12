@@ -28,7 +28,7 @@ call(a->1, b->"Wow"){
   }
 }
 ```
-
+a, b can be global variables.
 
 ###SideContext
 You can bind nested contexts(backed by hash map) in call stacks, and get/set contextual variables.
