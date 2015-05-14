@@ -20,10 +20,7 @@ class SideBinding[T] {
   }
 
   /** Get option of current value */
-  def *(): Option[T] = option
-
-  /** Get option of current value */
-  def option(): Option[T] = if (isEmpty) None else Some(apply())
+  def ?(): Option[T] = if (isEmpty) None else Some(apply())
 
   /** Form a raw-typed pair of binding-value, used in SideBinding.call(...) */
   def ->(value: T): (SideBinding[Any], Any) = (this.asInstanceOf[SideBinding[Any]], value)

@@ -13,17 +13,17 @@ class SideBindingSpec extends Specification {
       a.isEmpty must beTrue; b.isEmpty must beTrue
 
       call(a->"A", b->"B") {
-        a() must_== "A"; b.option must_== Some("B")
+        a() must_== "A"; b.? must_== Some("B")
       }
 
-      a.* must_== None; b.* must_== None
+      a.? must_== None; b.? must_== None
     }
 
     "Call with nested bindings" in {
       val a = SideBinding[Int]
       val b = SideBinding[Int]
 
-      a.* must_== None; b.* must_== None
+      a.? must_== None; b.? must_== None
 
       call(a->1, b->2) {
         (a(), b()) must_== (1, 2)
